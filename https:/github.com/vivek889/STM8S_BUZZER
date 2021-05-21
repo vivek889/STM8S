@@ -1,0 +1,26 @@
+#include "stm8s.h"
+
+int main() {
+  // Default clock is HSI/8 = 2MHz
+	
+	GPIO_DeInit(GPIOD); // prepare Port B for working 
+	GPIO_Init (GPIOD, GPIO_PIN_4, GPIO_MODE_OUT_PP_LOW_SLOW); //Declare PB5 as push pull Output pin
+		TIM2_DeInit();
+    TIM2_TimeBaseInit(TIM2_PRESCALER_2048, 1952);
+    TIM2_Cmd(ENABLE);
+ while(TRUE)
+    {
+          if(TIM2_GetCounter() > 976)
+          {
+               GPIO_WriteHigh(GPIOD, GPIO_PIN_4);
+          }
+          else
+          {
+               GPIO_WriteLow(GPIOD, GPIO_PIN_4);
+          }
+    };
+
+ 
+
+  
+}
